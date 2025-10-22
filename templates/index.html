@@ -53,6 +53,28 @@
       </div>
     </div>
 
+    <div class="row">
+      <div>
+        <label for="vendedor">Vendedor (opcional)</label>
+        <input type="text" id="vendedor" name="vendedor" value="{{ defaults.vendedor or '' }}" />
+      </div>
+      <div>
+        <label for="forma_pagamento">Forma de Pagamento (opcional)</label>
+        <input type="text" id="forma_pagamento" name="forma_pagamento" value="{{ defaults.forma_pagamento or '' }}" />
+      </div>
+    </div>
+
+    <div class="row">
+      <div>
+        <label for="preco_por_metro_opc">Preço por metro (opcional)</label>
+        <input type="text" id="preco_por_metro_opc" name="preco_por_metro_opc" value="{{ defaults.preco_por_metro_opc or '' }}" placeholder="Ex: 8,00" pattern="^\d{1,6}([\.,]\d{1,2})?$" />
+      </div>
+      <div>
+        <label for="metros_opc">Metros (opcional)</label>
+        <input type="text" id="metros_opc" name="metros_opc" value="{{ defaults.metros_opc or '' }}" placeholder="Ex: 2,50" pattern="^\d{1,6}([\.,]\d{1,2})?$" />
+      </div>
+    </div>
+
     <div class="actions">
       <button type="submit">Gerar Orçamento</button>
       <a class="btn secondary" href="/buscar">Buscar</a>
