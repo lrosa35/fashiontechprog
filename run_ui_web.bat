@@ -12,4 +12,6 @@ set DATABASE_URL=sqlite:///local.db
 set PYTHONIOENCODING=utf-8
 echo Iniciando Web UI em http://localhost:%PORT%
 start http://localhost:%PORT%
+set UI_DISABLE_AUTH=1
 python -m uvicorn ui_app:app --host 0.0.0.0 --port %PORT% --reload
+

@@ -38,13 +38,16 @@ if os.path.isdir(STATIC_DIR):
     app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
 
 # Basic auth (optional). Keep above route definitions.
-security = HTTPBasic()
+security = HTTPBasic(auto_error=False)
 UI_USER = os.getenv("UI_BASIC_USER")
 UI_PASS = os.getenv("UI_BASIC_PASS")
+UI_DISABLE_AUTH = os.getenv("UI_DISABLE_AUTH", "0") == "1"
 
-def require_auth(credentials: HTTPBasicCredentials = Depends(security)):
-    if not (UI_USER and UI_PASS):
-        return  # auth disabled when not configured
+def require_auth(credentials: Optional[HTTPBasicCredentials] = Depends(security)):
+    if UI_DISABLE_AUTH or not (UI_USER and UI_PASS):
+        return  # auth disabled in dev or when not configured
+    if credentials is None:
+        raise HTTPException(status_code=401, detail="Not authenticated")
     is_user = secrets.compare_digest(credentials.username, UI_USER)
     is_pass = secrets.compare_digest(credentials.password, UI_PASS)
     if not (is_user and is_pass):
