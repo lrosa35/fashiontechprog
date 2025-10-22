@@ -1,0 +1,39 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.log
+*.tmp
+
+# Virtual envs
+.env
+.env.local
+venv/
+.venv/
+ENV/
+
+# Builds / binaries
+build/
+dist/
+*.spec
+*.exe
+*.pkg
+antigo/
+_limpeza_backup_*/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Databases / data
+*.db
+/data/exports/
+
+# Node/Frontend caches
+node_modules/
+
+# PyInstaller extra
+*.manifest
+*.dll
+

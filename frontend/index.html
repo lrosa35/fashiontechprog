@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Novo Orçamento</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <style>
+      body { font-family: Arial, Helvetica, sans-serif; margin: 24px; background:#f7f7f7; }
+      .container { max-width: 920px; margin: 0 auto; background: #fff; padding: 20px 24px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+      h1 { margin: 0 0 16px; font-size: 22px; }
+      .row { display:flex; gap:12px; }
+      .row > div { flex:1; }
+      label { display:block; font-size: 14px; margin: 10px 0 6px; }
+      input[type=text], input[type=email], select { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; }
+      .actions { margin-top: 16px; display:flex; gap:10px; }
+      button, .btn { background: #1272EB; color: #fff; border: 0; padding: 10px 16px; border-radius: 6px; cursor: pointer; text-decoration:none; display:inline-block; }
+      .btn.secondary { background:#666; }
+      .error { background: #ffe9e9; color: #900; padding: 8px 10px; border-radius: 6px; margin: 10px 0; }
+      .success { background: #e9ffef; color: #064; padding: 8px 10px; border-radius: 6px; margin: 10px 0; }
+      .topnav { margin-bottom: 16px; }
+      .topnav a { margin-right: 12px; color:#1272EB; text-decoration:none; }
+      pre { white-space: pre-wrap; }
+    </style>
+    <script src="./js/config.js"></script>
+    <script defer src="./js/app.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="topnav">
+        <a href="/">Novo Orçamento</a>
+        <a href="/buscar.html">Buscar</a>
+      </div>
+      <h1>Novo Orçamento</h1>
+      <div id="msg"></div>
+      <form id="form-orc">
+        <div class="row">
+          <div>
+            <label for="tipo_servico">Tipo de Serviço</label>
+            <select id="tipo_servico" required>
+              <option value="Impressão" selected>Impressão</option>
+              <option value="Digitalização">Digitalização</option>
+            </select>
+          </div>
+          <div>
+            <label for="status">Status</label>
+            <select id="status">
+              <option>Sem desconto</option>
+              <option>Novo</option>
+              <option>Ativo</option>
+              <option>Inativo</option>
+            </select>
+          </div>
+          <div>
+            <label for="unidade">Unidade</label>
+            <select id="unidade" required>
+              <option value="Centímetros" selected>Centímetros</option>
+              <option value="Metro">Metro</option>
+            </select>
+          </div>
+        </div>
+
+        <label for="cliente">Cliente</label>
+        <input type="text" id="cliente" minlength="2" maxlength="120" required />
+
+        <div class="row">
+          <div>
+            <label for="cnpj">CNPJ/CPF</label>
+            <input type="text" id="cnpj" pattern="\d{11}|\d{14}" title="Digite 11 (CPF) ou 14 (CNPJ) dígitos" required />
+          </div>
+          <div>
+            <label for="email">E-mail</label>
+            <input type="email" id="email" required />
+          </div>
+          <div>
+            <label for="quantidade">Quantidade</label>
+            <input type="text" id="quantidade" required placeholder="Ex: 250 (cm) ou 2,5 (m)" />
+          </div>
+        </div>
+
+        <div class="actions">
+          <button type="submit">Gerar Orçamento</button>
+        </div>
+      </form>
+
+      <div id="result" style="display:none">
+        <h2>Resultado</h2>
+        <pre id="result-pre"></pre>
+      </div>
+    </div>
+  </body>
+  </html>
+

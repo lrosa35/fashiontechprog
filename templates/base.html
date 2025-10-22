@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{% block title %}Orçamentos{% endblock %}</title>
+  <style>
+    body { font-family: Arial, Helvetica, sans-serif; margin: 24px; background:#f7f7f7; }
+    .container { max-width: 920px; margin: 0 auto; background: #fff; padding: 20px 24px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+    h1 { margin: 0 0 16px; font-size: 22px; }
+    h2 { margin-top: 28px; font-size: 18px; }
+    label { display:block; font-size: 14px; margin: 10px 0 6px; }
+    input[type=text], input[type=email], select { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; }
+    .row { display:flex; gap:12px; }
+    .row > div { flex:1; }
+    .actions { margin-top: 16px; display:flex; gap:10px; }
+    button, .btn { background: #1272EB; color: #fff; border: 0; padding: 10px 16px; border-radius: 6px; cursor: pointer; text-decoration:none; display:inline-block; }
+    .btn.secondary { background:#666; }
+    .error { background: #ffe9e9; color: #900; padding: 8px 10px; border-radius: 6px; margin: 10px 0; }
+    table { width:100%; border-collapse: collapse; margin-top: 14px; }
+    th, td { border: 1px solid #e5e5e5; padding: 8px 10px; text-align: left; font-size: 14px; }
+    th { background:#fafafa; }
+    .topnav { margin-bottom: 16px; }
+    .topnav a { margin-right: 12px; color:#1272EB; text-decoration:none; }
+  </style>
+  {% block head %}{% endblock %}
+  {% block head_scripts %}{% endblock %}
+  {% block head_styles %}{% endblock %}
+  {% block meta %}{% endblock %}
+</head>
+<body>
+  <div class="container">
+    <div class="topnav">
+      <a href="/">Novo Orçamento</a>
+      <a href="/buscar">Buscar</a>
+    </div>
+    {% block content %}{% endblock %}
+  </div>
+</body>
+</html>
+

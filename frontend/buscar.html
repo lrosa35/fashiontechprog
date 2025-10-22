@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Buscar Orçamentos</title>
+    <style>
+      body { font-family: Arial, Helvetica, sans-serif; margin: 24px; background:#f7f7f7; }
+      .container { max-width: 920px; margin: 0 auto; background: #fff; padding: 20px 24px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+      h1 { margin: 0 0 16px; font-size: 22px; }
+      .row { display:flex; gap:12px; }
+      .row > div { flex:1; }
+      label { display:block; font-size: 14px; margin: 10px 0 6px; }
+      input[type=text] { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; }
+      .actions { margin-top: 16px; display:flex; gap:10px; }
+      button, .btn { background: #1272EB; color: #fff; border: 0; padding: 10px 16px; border-radius: 6px; cursor: pointer; text-decoration:none; display:inline-block; }
+      .btn.secondary { background:#666; }
+      table { width:100%; border-collapse: collapse; margin-top: 14px; }
+      th, td { border: 1px solid #e5e5e5; padding: 8px 10px; text-align: left; font-size: 14px; }
+      th { background:#fafafa; }
+      .topnav { margin-bottom: 16px; }
+      .topnav a { margin-right: 12px; color:#1272EB; text-decoration:none; }
+    </style>
+    <script src="./js/config.js"></script>
+    <script defer src="./js/app.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="topnav">
+        <a href="/">Novo Orçamento</a>
+        <a href="/buscar.html">Buscar</a>
+      </div>
+      <h1>Buscar Orçamentos</h1>
+      <div id="msg"></div>
+      <form id="form-busca">
+        <div class="row">
+          <div>
+            <label for="id">ID Orçamento</label>
+            <input type="text" id="id" />
+          </div>
+          <div>
+            <label for="cnpj">CNPJ/CPF (somente dígitos)</label>
+            <input type="text" id="cnpj" />
+          </div>
+        </div>
+        <div class="actions">
+          <button type="submit">Buscar</button>
+          <a class="btn secondary" href="/">Novo</a>
+        </div>
+      </form>
+
+      <table id="tbl" style="display:none">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Data/Hora</th>
+            <th>Cliente</th>
+            <th>Documento</th>
+            <th>Total</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </body>
+  </html>
+

@@ -1,0 +1,4 @@
+// Configure this file (copy to config.js) with your Heroku backend URL.
+// Example: https://sua-app.herokuapp.com
+window.API_BASE = "https://SEU-HEROKU-APP.herokuapp.com";
+

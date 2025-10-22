@@ -1,0 +1,21 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Web UI (uvicorn)",
+      "type": "python",
+      "request": "launch",
+      "module": "uvicorn",
+      "args": [
+        "ui_app:app",
+        "--host", "0.0.0.0",
+        "--port", "8090",
+        "--reload"
+      ],
+      "env": {
+        "UVICORN_RELOAD": "1"
+      },
+      "postDebugTask": "open-browser-ui"
+    }
+  ]
+}

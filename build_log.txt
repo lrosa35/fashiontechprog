@@ -1,0 +1,154 @@
+C:\Users\LEANDRO ROSA\AppData\Local\Microsoft\WindowsApps\python.exe
+Atualizando pip...
+Requirement already satisfied: pip in c:\users\leandro rosa\documents\impressões\banco de dados\.venv\lib\site-packages (25.2)
+Instalando dependencias do cliente...
+Requirement already satisfied: flet in c:\users\leandro rosa\documents\impressões\banco de dados\.venv\lib\site-packages (0.28.3)
+Requirement already satisfied: reportlab in c:\users\leandro rosa\documents\impressões\banco de dados\.venv\lib\site-packages (4.4.4)
+Requirement already satisfied: openpyxl in c:\users\leandro rosa\documents\impressões\banco de dados\.venv\lib\site-packages (3.1.5)
+Requirement already satisfied: python-docx in c:\users\leandro rosa\documents\impressões\banco de dados\.venv\lib\site-packages (1.2.0)
+Requirement already satisfied: pillow in c:\users\leandro rosa\documents\impressões\banco de dados\.venv\lib\site-packages (12.0.0)
+Requirement already satisfied: pyinstaller in c:\users\leandro rosa\documents\impressões\banco de dados\.venv\lib\site-packages (6.16.0)
+Requirement already satisfied: httpx in c:\users\leandro rosa\documents\impressões\banco de dados\.venv\lib\site-packages (from flet) (0.28.1)
+Requirement already satisfied: oauthlib<4.0.0,>=3.2.2 in c:\users\leandro rosa\documents\impressões\banco de dados\.venv\lib\site-packages (from flet) (3.3.1)
+Requirement already satisfied: repath<0.10.0,>=0.9.0 in c:\users\leandro rosa\documents\impressões\banco de dados\.venv\lib\site-packages (from flet) (0.9.0)
+Requirement already satisfied: six>=1.9.0 in c:\users\leandro rosa\documents\impressões\banco de dados\.venv\lib\site-packages (from repath<0.10.0,>=0.9.0->flet) (1.17.0)
+Requirement already satisfied: charset-normalizer in c:\users\leandro rosa\documents\impressões\banco de dados\.venv\lib\site-packages (from reportlab) (3.4.4)
+Requirement already satisfied: et-xmlfile in c:\users\leandro rosa\documents\impressões\banco de dados\.venv\lib\site-packages (from openpyxl) (2.0.0)
+Requirement already satisfied: lxml>=3.1.0 in c:\users\leandro rosa\documents\impressões\banco de dados\.venv\lib\site-packages (from python-docx) (6.0.2)
+Requirement already satisfied: typing_extensions>=4.9.0 in c:\users\leandro rosa\documents\impressões\banco de dados\.venv\lib\site-packages (from python-docx) (4.15.0)
+Requirement already satisfied: altgraph in c:\users\leandro rosa\documents\impressões\banco de dados\.venv\lib\site-packages (from pyinstaller) (0.17.4)
+Requirement already satisfied: packaging>=22.0 in c:\users\leandro rosa\documents\impressões\banco de dados\.venv\lib\site-packages (from pyinstaller) (25.0)
+Requirement already satisfied: pefile!=2024.8.26,>=2022.5.30 in c:\users\leandro rosa\documents\impressões\banco de dados\.venv\lib\site-packages (from pyinstaller) (2023.2.7)
+Requirement already satisfied: pyinstaller-hooks-contrib>=2025.8 in c:\users\leandro rosa\documents\impressões\banco de dados\.venv\lib\site-packages (from pyinstaller) (2025.9)
+Requirement already satisfied: pywin32-ctypes>=0.2.1 in c:\users\leandro rosa\documents\impressões\banco de dados\.venv\lib\site-packages (from pyinstaller) (0.2.3)
+Requirement already satisfied: setuptools>=42.0.0 in c:\users\leandro rosa\documents\impressões\banco de dados\.venv\lib\site-packages (from pyinstaller) (80.9.0)
+Requirement already satisfied: anyio in c:\users\leandro rosa\documents\impressões\banco de dados\.venv\lib\site-packages (from httpx->flet) (4.11.0)
+Requirement already satisfied: certifi in c:\users\leandro rosa\documents\impressões\banco de dados\.venv\lib\site-packages (from httpx->flet) (2025.10.5)
+Requirement already satisfied: httpcore==1.* in c:\users\leandro rosa\documents\impressões\banco de dados\.venv\lib\site-packages (from httpx->flet) (1.0.9)
+Requirement already satisfied: idna in c:\users\leandro rosa\documents\impressões\banco de dados\.venv\lib\site-packages (from httpx->flet) (3.11)
+Requirement already satisfied: h11>=0.16 in c:\users\leandro rosa\documents\impressões\banco de dados\.venv\lib\site-packages (from httpcore==1.*->httpx->flet) (0.16.0)
+Requirement already satisfied: sniffio>=1.1 in c:\users\leandro rosa\documents\impressões\banco de dados\.venv\lib\site-packages (from anyio->httpx->flet) (1.3.1)
+Gerando executavel (onefile)...
+183 INFO: PyInstaller: 6.16.0, contrib hooks: 2025.9
+184 INFO: Python: 3.13.9
+246 INFO: Platform: Windows-11-10.0.26100-SP0
+246 INFO: Python environment: C:\Users\LEANDRO ROSA\Documents\IMPRESSÕES\BANCO DE DADOS\.venv
+247 INFO: wrote C:\Users\LEANDRO ROSA\Documents\IMPRESSÕES\BANCO DE DADOS\Orcamentos.spec
+250 INFO: Removing temporary files and cleaning cache in C:\Users\LEANDRO ROSA\AppData\Local\pyinstaller
+999 WARNING: Failed to collect submodules for 'flet.map' because importing 'flet.map' raised: ImportError: cannot import name 'MapPointerDeviceType' from 'flet.core.map.map' (C:\Users\LEANDRO ROSA\Documents\IMPRESSÃ•ES\BANCO DE DADOS\.venv\Lib\site-packages\flet\core\map\map.py). Did you mean: 'PointerDeviceType'?
+1045 WARNING: Failed to collect submodules for 'flet.map' because importing 'flet.map' raised: ImportError: cannot import name 'MapPointerDeviceType' from 'flet.core.map.map' (C:\Users\LEANDRO ROSA\Documents\IMPRESSÃ•ES\BANCO DE DADOS\.venv\Lib\site-packages\flet\core\map\map.py). Did you mean: 'PointerDeviceType'?
+3527 WARNING: collect_data_files - skipping data collection for module 'flet_core' as it is not a package.
+3527 WARNING: collect_dynamic_libs - skipping library collection for module 'flet_core' as it is not a package.
+3952 INFO: Module search paths (PYTHONPATH):
+['C:\\Users\\LEANDRO ROSA\\Documents\\IMPRESSÕES\\BANCO DE DADOS',
+ 'C:\\Program '
+ 'Files\\WindowsApps\\PythonSoftwareFoundation.Python.3.13_3.13.2544.0_x64__qbz5n2kfra8p0\\python313.zip',
+ 'C:\\Program '
+ 'Files\\WindowsApps\\PythonSoftwareFoundation.Python.3.13_3.13.2544.0_x64__qbz5n2kfra8p0\\DLLs',
+ 'C:\\Program '
+ 'Files\\WindowsApps\\PythonSoftwareFoundation.Python.3.13_3.13.2544.0_x64__qbz5n2kfra8p0\\Lib',
+ 'C:\\Program '
+ 'Files\\WindowsApps\\PythonSoftwareFoundation.Python.3.13_3.13.2544.0_x64__qbz5n2kfra8p0',
+ 'C:\\Users\\LEANDRO ROSA\\Documents\\IMPRESSÕES\\BANCO DE DADOS\\.venv',
+ 'C:\\Users\\LEANDRO ROSA\\Documents\\IMPRESSÕES\\BANCO DE '
+ 'DADOS\\.venv\\Lib\\site-packages',
+ 'C:\\Users\\LEANDRO ROSA\\Documents\\IMPRESSÕES\\BANCO DE '
+ 'DADOS\\.venv\\Lib\\site-packages\\win32',
+ 'C:\\Users\\LEANDRO ROSA\\Documents\\IMPRESSÕES\\BANCO DE '
+ 'DADOS\\.venv\\Lib\\site-packages\\win32\\lib',
+ 'C:\\Users\\LEANDRO ROSA\\Documents\\IMPRESSÕES\\BANCO DE '
+ 'DADOS\\.venv\\Lib\\site-packages\\Pythonwin',
+ 'C:\\Users\\LEANDRO ROSA\\Documents\\IMPRESSÕES\\BANCO DE '
+ 'DADOS\\.venv\\Lib\\site-packages\\setuptools\\_vendor',
+ 'C:\\Users\\LEANDRO ROSA\\Documents\\IMPRESSÕES\\BANCO DE DADOS']
+4631 INFO: Appending 'datas' from .spec
+4640 INFO: checking Analysis
+4640 INFO: Building Analysis because Analysis-00.toc is non existent
+4640 INFO: Looking for Python shared library...
+4640 INFO: Using Python shared library: C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.13_3.13.2544.0_x64__qbz5n2kfra8p0\python313.dll
+4640 INFO: Running Analysis Analysis-00.toc
+4640 INFO: Target bytecode optimization level: 0
+4640 INFO: Initializing module dependency graph...
+4641 INFO: Initializing module graph hook caches...
+4653 INFO: Analyzing modules for base_library.zip ...
+6536 INFO: Processing standard module hook 'hook-heapq.py' from 'C:\\Users\\LEANDRO ROSA\\Documents\\IMPRESSÕES\\BANCO DE DADOS\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'
+6887 INFO: Processing standard module hook 'hook-encodings.py' from 'C:\\Users\\LEANDRO ROSA\\Documents\\IMPRESSÕES\\BANCO DE DADOS\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'
+9341 INFO: Processing standard module hook 'hook-pickle.py' from 'C:\\Users\\LEANDRO ROSA\\Documents\\IMPRESSÕES\\BANCO DE DADOS\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'
+10736 INFO: Caching module dependency graph...
+10783 INFO: Analyzing C:\Users\LEANDRO ROSA\Documents\IMPRESSÕES\BANCO DE DADOS\orcamento.py
+11151 INFO: Processing standard module hook 'hook-multiprocessing.util.py' from 'C:\\Users\\LEANDRO ROSA\\Documents\\IMPRESSÕES\\BANCO DE DADOS\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'
+11346 INFO: Processing standard module hook 'hook-xml.py' from 'C:\\Users\\LEANDRO ROSA\\Documents\\IMPRESSÕES\\BANCO DE DADOS\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'
+11644 INFO: Processing standard module hook 'hook-_ctypes.py' from 'C:\\Users\\LEANDRO ROSA\\Documents\\IMPRESSÕES\\BANCO DE DADOS\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'
+12127 INFO: Processing standard module hook 'hook-platform.py' from 'C:\\Users\\LEANDRO ROSA\\Documents\\IMPRESSÕES\\BANCO DE DADOS\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'
+12353 INFO: Processing standard module hook 'hook-difflib.py' from 'C:\\Users\\LEANDRO ROSA\\Documents\\IMPRESSÕES\\BANCO DE DADOS\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'
+12709 INFO: Processing pre-safe-import-module hook 'hook-typing_extensions.py' from 'C:\\Users\\LEANDRO ROSA\\Documents\\IMPRESSÕES\\BANCO DE DADOS\\.venv\\Lib\\site-packages\\PyInstaller\\hooks\\pre_safe_import_module'
+12709 INFO: SetuptoolsInfo: initializing cached setuptools info...
+17589 INFO: Processing standard module hook 'hook-certifi.py' from 'C:\\Users\\LEANDRO ROSA\\Documents\\IMPRESSÕES\\BANCO DE DADOS\\.venv\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\stdhooks'
+17706 INFO: Processing standard module hook 'hook-anyio.py' from 'C:\\Users\\LEANDRO ROSA\\Documents\\IMPRESSÕES\\BANCO DE DADOS\\.venv\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\stdhooks'
+19556 INFO: Processing standard module hook 'hook-cryptography.py' from 'C:\\Users\\LEANDRO ROSA\\Documents\\IMPRESSÕES\\BANCO DE DADOS\\.venv\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\stdhooks'
+21464 INFO: hook-cryptography: cryptography does not seem to be using dynamically linked OpenSSL.
+22780 INFO: Processing pre-safe-import-module hook 'hook-six.moves.py' from 'C:\\Users\\LEANDRO ROSA\\Documents\\IMPRESSÕES\\BANCO DE DADOS\\.venv\\Lib\\site-packages\\PyInstaller\\hooks\\pre_safe_import_module'
+23121 INFO: Processing standard module hook 'hook-openpyxl.py' from 'C:\\Users\\LEANDRO ROSA\\Documents\\IMPRESSÕES\\BANCO DE DADOS\\.venv\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\stdhooks'
+23227 INFO: Processing standard module hook 'hook-lxml.py' from 'C:\\Users\\LEANDRO ROSA\\Documents\\IMPRESSÕES\\BANCO DE DADOS\\.venv\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\stdhooks'
+23819 INFO: Processing standard module hook 'hook-lxml.etree.py' from 'C:\\Users\\LEANDRO ROSA\\Documents\\IMPRESSÕES\\BANCO DE DADOS\\.venv\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\stdhooks'
+24034 INFO: Processing standard module hook 'hook-xml.etree.cElementTree.py' from 'C:\\Users\\LEANDRO ROSA\\Documents\\IMPRESSÕES\\BANCO DE DADOS\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'
+24459 INFO: Processing standard module hook 'hook-PIL.py' from 'C:\\Users\\LEANDRO ROSA\\Documents\\IMPRESSÕES\\BANCO DE DADOS\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'
+24570 INFO: Processing standard module hook 'hook-PIL.Image.py' from 'C:\\Users\\LEANDRO ROSA\\Documents\\IMPRESSÕES\\BANCO DE DADOS\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'
+25537 INFO: Processing standard module hook 'hook-PIL.ImageFilter.py' from 'C:\\Users\\LEANDRO ROSA\\Documents\\IMPRESSÕES\\BANCO DE DADOS\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'
+26360 INFO: Processing standard module hook 'hook-reportlab.lib.utils.py' from 'C:\\Users\\LEANDRO ROSA\\Documents\\IMPRESSÕES\\BANCO DE DADOS\\.venv\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\stdhooks'
+26445 INFO: Processing standard module hook 'hook-reportlab.pdfbase._fontdata.py' from 'C:\\Users\\LEANDRO ROSA\\Documents\\IMPRESSÕES\\BANCO DE DADOS\\.venv\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\stdhooks'
+27648 INFO: Processing standard module hook 'hook-charset_normalizer.py' from 'C:\\Users\\LEANDRO ROSA\\Documents\\IMPRESSÕES\\BANCO DE DADOS\\.venv\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\stdhooks'
+28305 INFO: Processing standard module hook 'hook-sysconfig.py' from 'C:\\Users\\LEANDRO ROSA\\Documents\\IMPRESSÕES\\BANCO DE DADOS\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'
+30031 INFO: Processing standard module hook 'hook-xml.dom.domreg.py' from 'C:\\Users\\LEANDRO ROSA\\Documents\\IMPRESSÕES\\BANCO DE DADOS\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'
+30164 INFO: Processing standard module hook 'hook-urllib3.py' from 'C:\\Users\\LEANDRO ROSA\\Documents\\IMPRESSÕES\\BANCO DE DADOS\\.venv\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\stdhooks'
+30762 INFO: Processing standard module hook 'hook-docx.py' from 'C:\\Users\\LEANDRO ROSA\\Documents\\IMPRESSÕES\\BANCO DE DADOS\\.venv\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\stdhooks'
+31290 INFO: Processing standard module hook 'hook-pythoncom.py' from 'C:\\Users\\LEANDRO ROSA\\Documents\\IMPRESSÕES\\BANCO DE DADOS\\.venv\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\stdhooks'
+31512 INFO: Processing standard module hook 'hook-pywintypes.py' from 'C:\\Users\\LEANDRO ROSA\\Documents\\IMPRESSÕES\\BANCO DE DADOS\\.venv\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\stdhooks'
+31725 INFO: Processing pre-safe-import-module hook 'hook-win32com.py' from 'C:\\Users\\LEANDRO ROSA\\Documents\\IMPRESSÕES\\BANCO DE DADOS\\.venv\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\pre_safe_import_module'
+31970 INFO: Processing standard module hook 'hook-win32com.py' from 'C:\\Users\\LEANDRO ROSA\\Documents\\IMPRESSÕES\\BANCO DE DADOS\\.venv\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\stdhooks'
+32580 INFO: Analyzing hidden import 'flet.ads'
+32592 INFO: Analyzing hidden import 'flet.auth.providers'
+32601 INFO: Analyzing hidden import 'flet.canvas'
+32648 INFO: Analyzing hidden import 'flet.cli'
+32649 INFO: Analyzing hidden import 'flet.matplotlib_chart'
+32655 INFO: Analyzing hidden import 'flet.plotly_chart'
+32660 INFO: Analyzing hidden import 'flet.security'
+32679 INFO: Processing module hooks (post-graph stage)...
+33152 INFO: Processing standard module hook 'hook-lxml.isoschematron.py' from 'C:\\Users\\LEANDRO ROSA\\Documents\\IMPRESSÕES\\BANCO DE DADOS\\.venv\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\stdhooks'
+33554 INFO: Processing standard module hook 'hook-PIL.SpiderImagePlugin.py' from 'C:\\Users\\LEANDRO ROSA\\Documents\\IMPRESSÕES\\BANCO DE DADOS\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'
+33728 INFO: Processing standard module hook 'hook-lxml.objectify.py' from 'C:\\Users\\LEANDRO ROSA\\Documents\\IMPRESSÕES\\BANCO DE DADOS\\.venv\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\stdhooks'
+33744 INFO: Performing binary vs. data reclassification (291 entries)
+33767 INFO: Looking for ctypes DLLs
+33790 INFO: Analyzing run-time hooks ...
+33795 INFO: Including run-time hook 'pyi_rth_inspect.py' from 'C:\\Users\\LEANDRO ROSA\\Documents\\IMPRESSÕES\\BANCO DE DADOS\\.venv\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks'
+33798 INFO: Including run-time hook 'pyi_rth_pkgutil.py' from 'C:\\Users\\LEANDRO ROSA\\Documents\\IMPRESSÕES\\BANCO DE DADOS\\.venv\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks'
+33800 INFO: Including run-time hook 'pyi_rth_multiprocessing.py' from 'C:\\Users\\LEANDRO ROSA\\Documents\\IMPRESSÕES\\BANCO DE DADOS\\.venv\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks'
+33802 INFO: Including run-time hook 'pyi_rth_cryptography_openssl.py' from 'C:\\Users\\LEANDRO ROSA\\Documents\\IMPRESSÕES\\BANCO DE DADOS\\.venv\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\rthooks'
+33803 INFO: Including run-time hook 'pyi_rth_pywintypes.py' from 'C:\\Users\\LEANDRO ROSA\\Documents\\IMPRESSÕES\\BANCO DE DADOS\\.venv\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\rthooks'
+33804 INFO: Including run-time hook 'pyi_rth_pythoncom.py' from 'C:\\Users\\LEANDRO ROSA\\Documents\\IMPRESSÕES\\BANCO DE DADOS\\.venv\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\rthooks'
+33824 INFO: Creating base_library.zip...
+33845 INFO: Looking for dynamic libraries
+35654 INFO: Extra DLL search directories (AddDllDirectory): []
+35654 INFO: Extra DLL search directories (PATH): []
+36057 INFO: Warnings written to C:\Users\LEANDRO ROSA\Documents\IMPRESSÕES\BANCO DE DADOS\build\Orcamentos\warn-Orcamentos.txt
+36152 INFO: Graph cross-reference written to C:\Users\LEANDRO ROSA\Documents\IMPRESSÕES\BANCO DE DADOS\build\Orcamentos\xref-Orcamentos.html
+36211 INFO: checking PYZ
+36212 INFO: Building PYZ because PYZ-00.toc is non existent
+36212 INFO: Building PYZ (ZlibArchive) C:\Users\LEANDRO ROSA\Documents\IMPRESSÕES\BANCO DE DADOS\build\Orcamentos\PYZ-00.pyz
+37266 INFO: Building PYZ (ZlibArchive) C:\Users\LEANDRO ROSA\Documents\IMPRESSÕES\BANCO DE DADOS\build\Orcamentos\PYZ-00.pyz completed successfully.
+37300 INFO: checking PKG
+37300 INFO: Building PKG because PKG-00.toc is non existent
+37300 INFO: Building PKG (CArchive) Orcamentos.pkg
+44428 INFO: Building PKG (CArchive) Orcamentos.pkg completed successfully.
+44437 INFO: Bootloader C:\Users\LEANDRO ROSA\Documents\IMPRESSÕES\BANCO DE DADOS\.venv\Lib\site-packages\PyInstaller\bootloader\Windows-64bit-intel\runw.exe
+44437 INFO: checking EXE
+44437 INFO: Building EXE because EXE-00.toc is non existent
+44437 INFO: Building EXE from EXE-00.toc
+44437 INFO: Copying bootloader EXE to C:\Users\LEANDRO ROSA\Documents\IMPRESSÕES\BANCO DE DADOS\dist\Orcamentos.exe
+44475 INFO: Copying icon to EXE
+44478 INFO: Copying 0 resources to EXE
+44478 INFO: Embedding manifest in EXE
+44481 INFO: Appending PKG archive to EXE
+44503 INFO: Fixing EXE headers
+45249 INFO: Building EXE from EXE-00.toc completed successfully.
+45258 INFO: Build complete! The results are available in: C:\Users\LEANDRO ROSA\Documents\IMPRESSÕES\BANCO DE DADOS\dist

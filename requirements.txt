@@ -1,0 +1,18 @@
+flet
+openpyxl
+reportlab
+pillow
+python-docx
+docx2pdf; platform_system != "Linux"
+pywin32; platform_system == "Windows"
+requests
+httpx
+python-dotenv
+sqlalchemy
+fastapi
+pydantic
+msal
+uvicorn
+pyinstaller
+jinja2
+python-multipart

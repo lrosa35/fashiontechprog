@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Orçamento Criado{% endblock %}
+{% block content %}
+  <h1>Orçamento Criado</h1>
+  <p>Orçamento gerado com sucesso.</p>
+  <h2>Resumo</h2>
+  <table>
+    <tr><th>ID</th><td>{{ orc.id_orcamento }}</td></tr>
+    <tr><th>Data/Hora</th><td>{{ orc.data_hora }}</td></tr>
+    <tr><th>Tipo</th><td>{{ orc.tipo_servico }}</td></tr>
+    <tr><th>Cliente</th><td>{{ orc.cliente }}</td></tr>
+    <tr><th>CNPJ/CPF</th><td>{{ orc.cnpj }}</td></tr>
+    <tr><th>E-mail</th><td>{{ orc.email }}</td></tr>
+    <tr><th>Status</th><td>{{ orc.status }}</td></tr>
+    <tr><th>Quantidade</th><td>{{ orc.quantidade }} {{ orc.unidade }}</td></tr>
+    <tr><th>Metros</th><td>{{ orc.metros }}</td></tr>
+    <tr><th>Preço/m</th><td>{{ orc.preco_por_metro }}</td></tr>
+    <tr><th>Total</th><td><strong>{{ orc.valor_total }}</strong></td></tr>
+  </table>
+  <div class="actions">
+    <a class="btn" href="/">Novo Orçamento</a>
+    <a class="btn secondary" href="/buscar?id={{ orc.id_orcamento }}">Ver Detalhes</a>
+    <a class="btn" href="/orcamentos/{{ orc.id_orcamento }}/pdf">Baixar PDF</a>
+  </div>
+{% endblock %}

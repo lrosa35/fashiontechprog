@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Detalhe do Orçamento{% endblock %}
+{% block content %}
+  <h1>Detalhe do Orçamento</h1>
+  {% if error %}
+    <div class="error">{{ error }}</div>
+  {% else %}
+    <table>
+      {% for k, v in orc.items() %}
+        <tr>
+          <th>{{ k }}</th>
+          <td>{{ v }}</td>
+        </tr>
+      {% endfor %}
+    </table>
+    <div class="actions">
+      <a class="btn" href="/">Novo</a>
+      {% set _id = orc.get('ID Orçamento') or orc.get('id_orcamento') %}
+      <a class="btn" href="/orcamentos/{{ _id }}/pdf">Baixar PDF</a>
+      <a class="btn secondary" href="/buscar?id={{ _id }}">Voltar</a>
+    </div>
+  {% endif %}
+{% endblock %}

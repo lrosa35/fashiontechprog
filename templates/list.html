@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block title %}Buscar Orçamentos{% endblock %}
+{% block content %}
+  <h1>Buscar Orçamentos</h1>
+  {% if error %}
+    <div class="error">{{ error }}</div>
+  {% endif %}
+  <form method="get" action="/buscar">
+    <div class="row">
+      <div>
+        <label for="id">ID Orçamento</label>
+        <input type="text" id="id" name="id" value="{{ id }}" />
+      </div>
+      <div>
+        <label for="cnpj">CNPJ/CPF (apenas dígitos ok)</label>
+        <input type="text" id="cnpj" name="cnpj" value="{{ cnpj }}" />
+      </div>
+    </div>
+    <div class="actions">
+      <button type="submit">Buscar</button>
+      <a class="btn secondary" href="/">Novo</a>
+    </div>
+  </form>
+
+  {% if rows and rows|length > 0 %}
+    <h2>Resultados</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Data/Hora</th>
+          <th>Cliente</th>
+          <th>Documento</th>
+          <th>Total</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for r in rows %}
+          <tr>
+            <td>{{ r.get('ID Orçamento') or r.get('ID Orçamento ') or r.get('ID') or r.get('id') or r.get('id_orcamento') }}</td>
+            <td>{{ r.get('Data/Hora') or r.get('data_hora') }}</td>
+            <td>{{ r.get('Cliente') or r.get('cliente') }}</td>
+            <td>{{ r.get('CNPJ/CPF') or r.get('cnpj') }}</td>
+            <td>{{ r.get('Valor Total') or r.get('valor_total') }}</td>
+            <td><a class="btn secondary" href="/orcamentos/{{ r.get('ID Orçamento') or r.get('id_orcamento') }}">Detalhes</a></td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% endif %}
+{% endblock %}
+
