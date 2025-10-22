@@ -278,7 +278,7 @@ async def importar_get(request: Request, _auth=Depends(require_auth)):
 @app.post('/importar', response_class=HTMLResponse)
 async def importar_post(request: Request, file: UploadFile = File(...), _auth=Depends(require_auth)):
     if not DB.is_ready():
-        return templates.TemplateResponse('importar.html', {'request': request, 'error': 'DATABASE_URL não configurado no Heroku.'}, status_code=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        return templates.TemplateResponse('importar.html', {'request': request, 'error': 'Banco não configurado. No Heroku, adicione o add-on Postgres (DATABASE_URL é criado automaticamente).'}, status_code=status.HTTP_500_INTERNAL_SERVER_ERROR)
     with tempfile.NamedTemporaryFile(delete=False, suffix='.xlsx') as tmp:
         content = await file.read()
         tmp.write(content)
@@ -330,6 +330,7 @@ async def importar_post(request: Request, file: UploadFile = File(...), _auth=De
             except Exception:
                 pass
     return templates.TemplateResponse('importar.html', {'request': request, 'result': counts})
+
 
 
 

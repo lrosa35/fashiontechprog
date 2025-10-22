@@ -91,7 +91,7 @@
   <form method="post" action="/orcamentos">
     <div class="row">
       <div>
-        <label for="tipo_Serviço">Tipo de Serviço</label>
+        <label for="tipo_servico">Tipo de Serviço</label>
         <select name="tipo_servico" id="tipo_servico" required>
           {% set ts = (defaults.tipo_servico or "Impressão") %}
           <option value="Impressão" {{ 'selected' if ts=='Impressão' else '' }}>Impressão</option>
@@ -164,4 +164,5 @@
     </div>
   </form>
 {% endblock %}
+
 
