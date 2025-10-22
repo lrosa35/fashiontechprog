@@ -63,6 +63,22 @@ async def index(request: Request, _auth=Depends(require_auth)):
         },
     )
 
+@app.get("/clientes", response_class=HTMLResponse)
+async def clientes(request: Request, _auth=Depends(require_auth)):
+    return templates.TemplateResponse("clientes.html", {"request": request})
+
+@app.get("/contrato", response_class=HTMLResponse)
+async def contrato(request: Request, _auth=Depends(require_auth)):
+    return templates.TemplateResponse("contrato.html", {"request": request})
+
+@app.get("/relatorios", response_class=HTMLResponse)
+async def relatorios(request: Request, _auth=Depends(require_auth)):
+    return templates.TemplateResponse("relatorios.html", {"request": request})
+
+@app.get("/usuarios", response_class=HTMLResponse)
+async def usuarios(request: Request, _auth=Depends(require_auth)):
+    return templates.TemplateResponse("usuarios.html", {"request": request})
+
 
 @app.post("/orcamentos", response_class=HTMLResponse)
 async def create_orcamento(
