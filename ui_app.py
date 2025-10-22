@@ -22,7 +22,7 @@ from openpyxl import load_workbook
 import tempfile
 
 
-app = FastAPI(title="OrÃ§amentos Web UI")
+app = FastAPI(title="Orçamentos Web UI")
 
 # Mount the JSON API under /api (no changes required in server.py)
 app.mount("/api", api_app)
@@ -59,9 +59,9 @@ async def index(request: Request, _auth=Depends(require_auth)):
         {
             "request": request,
             "defaults": {
-                "tipo_servico": "ImpressÃ£o",
+                "tipo_servico": "Impressão",
                 "status": "Sem desconto",
-                "unidade": "CentÃ­metros",
+                "unidade": "Centímetros",
             },
         },
     )
@@ -125,7 +125,7 @@ async def create_orcamento(
             "index.html",
             {
                 "request": request,
-                "error": "Erro de validaÃ§Ã£o: verifique os campos.",
+                "error": "Erro de validação: verifique os campos.",
                 "details": ve.errors(),
                 "defaults": {
                     "tipo_servico": tipo_servico,
@@ -152,7 +152,7 @@ async def create_orcamento(
             "index.html",
             {
                 "request": request,
-                "error": f"Falha ao criar orÃ§amento: {ex}",
+                "error": f"Falha ao criar orçamento: {ex}",
                 "defaults": body.model_dump(),
             },
             status_code=status.HTTP_400_BAD_REQUEST,
@@ -183,7 +183,7 @@ async def detalhe_orcamento(request: Request, orc_id: str, _auth=Depends(require
     except Exception as ex:
         return templates.TemplateResponse(
             "detail.html",
-            {"request": request, "error": f"NÃ£o foi possÃ­vel obter o orÃ§amento: {ex}"},
+            {"request": request, "error": f"Não foi possível obter o orçamento: {ex}"},
             status_code=status.HTTP_404_NOT_FOUND,
         )
 
@@ -209,12 +209,12 @@ async def baixar_pdf(orc_id: str, _auth=Depends(require_auth)):
 
     id_orc = d.get("ID OrÃ§amento") or d.get("id_orcamento") or orc_id
     datahora = d.get("Data/Hora") or d.get("data_hora") or datetime.now().strftime("%d/%m/%Y %H:%M:%S")
-    tipo_servico = d.get("Tipo de ServiÃ§o") or d.get("tipo_servico") or "ImpressÃ£o"
+    tipo_servico = d.get("Tipo de ServiÃ§o") or d.get("tipo_servico") or "Impressão"
     cliente_val = d.get("CLIENTE (Valor)") or d.get("Cliente") or d.get("cliente") or ""
     vendedor = d.get("Vendedor") or ""
     status_val = d.get("Status") or d.get("status") or "Sem desconto"
     qtd = d.get("Quantidade") or d.get("quantidade") or ""
-    unidade = d.get("Unidade") or d.get("unidade") or "CentÃ­metros"
+    unidade = d.get("Unidade") or d.get("unidade") or "Centímetros"
     metros = d.get("Metros") or d.get("metros") or ""
     preco = d.get("PreÃ§o por metro") or d.get("preco_por_metro") or ""
     forma_pgto = d.get("Forma de Pagamento") or ""
@@ -330,5 +330,6 @@ async def importar_post(request: Request, file: UploadFile = File(...), _auth=De
             except Exception:
                 pass
     return templates.TemplateResponse('importar.html', {'request': request, 'result': counts})
+
 
 

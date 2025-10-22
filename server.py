@@ -57,7 +57,7 @@ def acquire_token():
     flow = app.initiate_device_flow(scopes=[f"https://graph.microsoft.com/{s}" for s in SCOPES])
     if "user_code" not in flow:
         raise RuntimeError("Falha ao iniciar Device Code Flow")
-    print("\n=== AutorizaÃ§Ã£o necessÃ¡ria ===")
+    print("\n=== Autorização necessÃ¡ria ===")
     print(flow["message"])  # abre https://microsoft.com/devicelogin e informe o cÃ³digo
     result = app.acquire_token_by_device_flow(flow)
     if "access_token" not in result:
@@ -98,7 +98,7 @@ async def get_drive_item_id(token: str) -> str:
     async with await graph_client(token) as client:
         r = await client.get(url)
         if r.status_code != 200:
-            raise HTTPException(500, f"NÃ£o achei o arquivo no OneDrive ({r.text})")
+            raise HTTPException(500, f"Não achei o arquivo no OneDrive ({r.text})")
         return r.json()["id"]
 
 async def create_session(token: str, item_id: str) -> str:
@@ -106,7 +106,7 @@ async def create_session(token: str, item_id: str) -> str:
     async with await graph_client(token) as client:
         r = await client.post(url, json={"persistChanges": True})
         if r.status_code not in (200, 201):
-            raise HTTPException(500, f"Erro ao criar sessÃ£o do Excel: {r.text}")
+            raise HTTPException(500, f"Erro ao criar sessão do Excel: {r.text}")
         return r.json()["id"]  # workbook-session-id
 
 async def list_rows(token: str, item_id: str, session_id: str) -> list:
@@ -203,12 +203,12 @@ def proximo_seq_por_rows(rows: list, prefixo: str) -> int:
 
 # ====== FastAPI ======
 class OrcamentoIn(BaseModel):
-    tipo_servico: Literal["ImpressÃ£o", "DigitalizaÃ§Ã£o"]
+    tipo_servico: Literal["Impressão", "Digitalização"]
     cliente: str
     cnpj: str
     email: str
     status: Literal["Sem desconto", "Novo", "Ativo", "Inativo"]
-    unidade: Literal["CentÃ­metros", "Metro"]
+    unidade: Literal["Centímetros", "Metro"]
     quantidade: str = Field(..., description="Em cm (inteiro) ou m (decimal). Usa vÃ­rgula ou ponto.")
     # Opcionais (UI Web): se informados, sobrescrevem cÃ¡lculos/salvam no registro
     vendedor: Optional[str] | None = None
@@ -270,10 +270,10 @@ async def proximo_id(tipo_servico: Literal["Impressao", "Digitalizacao"]):
 async def criar_orcamento(body: OrcamentoIn):
     # validaÃ§Ãµes
     if not validar_email(body.email):
-        raise HTTPException(400, "E-mail invÃ¡lido")
+        raise HTTPException(400, "E-mail inválido")
     d = re.sub(r'\D', '', body.cnpj)
     if len(d) not in (11, 14):
-        raise HTTPException(400, "Documento deve ter 11 (CPF) ou 14 (CNPJ) digitos")
+        raise HTTPException(400, "Documento deve ter 11 (CPF) ou 14 (CNPJ) dígitos")
     # quant
     qtd = float((body.quantidade or "").replace(",", "."))
     if qtd <= 0:
@@ -302,7 +302,7 @@ async def criar_orcamento(body: OrcamentoIn):
     dtok = data_tokens()
 
     id_orc = f"OR-{sigla}{seq}{dtok['data_compacta']}"
-    metros = (qtd/100.0) if body.unidade == "CentÃ­metros" else qtd
+    metros = (qtd/100.0) if body.unidade == "Centímetros" else qtd
     preco  = 8.00 if body.status in ["Novo", "Ativo"] else 8.50
     # Overrides opcionais vindos do formulÃ¡rio
     try:
@@ -448,7 +448,7 @@ async def obter_orcamento(orc_id: str):
     for d in rows:
         if idx_id is not None and str(list(d.values())[idx_id]) == orc_id:
             return d
-    raise HTTPException(404, "OrÃ§amento nÃ£o encontrado")
+    raise HTTPException(404, "OrÃ§amento não encontrado")
 
 # ====== Cache helpers (item_id e sessão) ======
 async def get_drive_item_id_cached(token: str) -> str:
@@ -526,6 +526,7 @@ async def _start_discovery():
         t.start()
     except Exception:
         pass
+
 
 
 

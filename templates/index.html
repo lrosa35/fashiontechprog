@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+﻿{% extends "base.html" %}
 {% block title %}Novo Orçamento{% endblock %}
 {% block content %}
   <h1>Novo Orçamento</h1>
@@ -81,3 +81,87 @@
     </div>
   </form>
 {% endblock %}
+{% extends "base.html" %}
+{% block title %}Novo Orçamento{% endblock %}
+{% block content %}
+  <h1>Novo Orçamento</h1>
+  {% if error %}
+    <div class="error">{{ error }}</div>
+  {% endif %}
+  <form method="post" action="/orcamentos">
+    <div class="row">
+      <div>
+        <label for="tipo_Serviço">Tipo de Serviço</label>
+        <select name="tipo_servico" id="tipo_servico" required>
+          {% set ts = (defaults.tipo_servico or "Impressão") %}
+          <option value="Impressão" {{ 'selected' if ts=='Impressão' else '' }}>Impressão</option>
+          <option value="Digitalização" {{ 'selected' if ts=='Digitalização' else '' }}>Digitalização</option>
+        </select>
+      </div>
+      <div>
+        <label for="status">Status</label>
+        {% set st = (defaults.status or "Sem desconto") %}
+        <select name="status" id="status">
+          <option>Sem desconto</option>
+          <option {{ 'selected' if st=='Novo' else '' }}>Novo</option>
+          <option {{ 'selected' if st=='Ativo' else '' }}>Ativo</option>
+          <option {{ 'selected' if st=='Inativo' else '' }}>Inativo</option>
+        </select>
+      </div>
+      <div>
+        <label for="unidade">Unidade</label>
+        {% set un = (defaults.unidade or "Centímetros") %}
+        <select name="unidade" id="unidade" required>
+          <option value="Centímetros" {{ 'selected' if un=='Centímetros' else '' }}>Centímetros</option>
+          <option value="Metro" {{ 'selected' if un=='Metro' else '' }}>Metro</option>
+        </select>
+      </div>
+    </div>
+
+    <label for="cliente">Cliente</label>
+    <input type="text" id="cliente" name="cliente" value="{{ defaults.cliente or '' }}" minlength="2" maxlength="120" required />
+
+    <div class="row">
+      <div>
+        <label for="cnpj">CNPJ/CPF</label>
+        <input type="text" id="cnpj" name="cnpj" value="{{ defaults.cnpj or '' }}" pattern="\d{11}|\d{14}" title="Digite 11 (CPF) ou 14 (CNPJ) dígitos" required />
+      </div>
+      <div>
+        <label for="email">E-mail</label>
+        <input type="email" id="email" name="email" value="{{ defaults.email or '' }}" required />
+      </div>
+      <div>
+        <label for="quantidade">Quantidade</label>
+        <input type="text" id="quantidade" name="quantidade" value="{{ defaults.quantidade or '' }}" required placeholder="Ex: 250 (cm) ou 2,5 (m)" pattern="^\d{1,6}([\.,]\d{1,2})?$" title="Use números inteiros (cm) ou decimais (m)" />
+      </div>
+    </div>
+
+    <div class="row">
+      <div>
+        <label for="vendedor">Vendedor (opcional)</label>
+        <input type="text" id="vendedor" name="vendedor" value="{{ defaults.vendedor or '' }}" />
+      </div>
+      <div>
+        <label for="forma_pagamento">Forma de Pagamento (opcional)</label>
+        <input type="text" id="forma_pagamento" name="forma_pagamento" value="{{ defaults.forma_pagamento or '' }}" />
+      </div>
+    </div>
+
+    <div class="row">
+      <div>
+        <label for="preco_por_metro_opc">Preço por metro (opcional)</label>
+        <input type="text" id="preco_por_metro_opc" name="preco_por_metro_opc" value="{{ defaults.preco_por_metro_opc or '' }}" placeholder="Ex: 8,00" pattern="^\d{1,6}([\.,]\d{1,2})?$" />
+      </div>
+      <div>
+        <label for="metros_opc">Metros (opcional)</label>
+        <input type="text" id="metros_opc" name="metros_opc" value="{{ defaults.metros_opc or '' }}" placeholder="Ex: 2,50" pattern="^\d{1,6}([\.,]\d{1,2})?$" />
+      </div>
+    </div>
+
+    <div class="actions">
+      <button type="submit">Gerar Orçamento</button>
+      <a class="btn secondary" href="/buscar">Buscar</a>
+    </div>
+  </form>
+{% endblock %}
+
