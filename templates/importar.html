@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Importar Planilha{% endblock %}
+{% block content %}
+  <h1>Importar Planilha (Excel → Banco)</h1>
+  {% if error %}
+    <div class="error">{{ error }}</div>
+  {% endif %}
+  <form method="post" action="/importar" enctype="multipart/form-data">
+    <label for="file">Selecione o arquivo .xlsx exportado do sistema</label>
+    <input type="file" id="file" name="file" accept=".xlsx" required />
+    <div class="actions">
+      <button type="submit">Enviar e Importar</button>
+    </div>
+  </form>
+  {% if result %}
+    <h2>Resumo</h2>
+    <table>
+      <tr><th>Orçamentos</th><td>{{ result.orc_lidos }} lidos / {{ result.orc_inseridos }} inseridos</td></tr>
+      <tr><th>Cadastros</th><td>{{ result.cad_lidos }} lidos / {{ result.cad_inseridos }} inseridos</td></tr>
+      <tr><th>Pedidos</th><td>{{ result.ped_lidos }} lidos / {{ result.ped_inseridos }} inseridos</td></tr>
+    </table>
+  {% endif %}
+{% endblock %}
+

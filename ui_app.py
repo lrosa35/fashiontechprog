@@ -1,11 +1,11 @@
-import os
+﻿import os
 from typing import Optional
 
 import os
 from datetime import datetime
 from typing import Optional
 
-from fastapi import FastAPI, Request, Form, status, Depends, HTTPException
+from fastapi import FastAPI, Request, Form, status, Depends, HTTPException, UploadFile, File
 from fastapi.responses import HTMLResponse, RedirectResponse, FileResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
@@ -17,9 +17,12 @@ import secrets
 from server import app as api_app
 from server import OrcamentoIn, criar_orcamento, listar_orcamentos, obter_orcamento
 import orcamento as orc
+from db_backend import DB
+from openpyxl import load_workbook
+import tempfile
 
 
-app = FastAPI(title="Orçamentos Web UI")
+app = FastAPI(title="OrÃ§amentos Web UI")
 
 # Mount the JSON API under /api (no changes required in server.py)
 app.mount("/api", api_app)
@@ -56,9 +59,9 @@ async def index(request: Request, _auth=Depends(require_auth)):
         {
             "request": request,
             "defaults": {
-                "tipo_servico": "Impressão",
+                "tipo_servico": "ImpressÃ£o",
                 "status": "Sem desconto",
-                "unidade": "Centímetros",
+                "unidade": "CentÃ­metros",
             },
         },
     )
@@ -115,7 +118,7 @@ async def create_orcamento(
             "index.html",
             {
                 "request": request,
-                "error": "Erro de validação: verifique os campos.",
+                "error": "Erro de validaÃ§Ã£o: verifique os campos.",
                 "details": ve.errors(),
                 "defaults": {
                     "tipo_servico": tipo_servico,
@@ -142,7 +145,7 @@ async def create_orcamento(
             "index.html",
             {
                 "request": request,
-                "error": f"Falha ao criar orçamento: {ex}",
+                "error": f"Falha ao criar orÃ§amento: {ex}",
                 "defaults": body.model_dump(),
             },
             status_code=status.HTTP_400_BAD_REQUEST,
@@ -173,7 +176,7 @@ async def detalhe_orcamento(request: Request, orc_id: str, _auth=Depends(require
     except Exception as ex:
         return templates.TemplateResponse(
             "detail.html",
-            {"request": request, "error": f"Não foi possível obter o orçamento: {ex}"},
+            {"request": request, "error": f"NÃ£o foi possÃ­vel obter o orÃ§amento: {ex}"},
             status_code=status.HTTP_404_NOT_FOUND,
         )
 
@@ -185,7 +188,7 @@ def _infer_doc_label_and_value(d: dict) -> tuple[str, str, str]:
     if len(digits) == 11:
         return ("CPF", "Nome", orc.formatar_cpf(digits))
     if len(digits) == 14:
-        return ("CNPJ", "Razão Social", orc.formatar_cnpj(digits))
+        return ("CNPJ", "RazÃ£o Social", orc.formatar_cnpj(digits))
     # fallback
     return ("Documento", "Documento", str(doc_raw))
 
@@ -195,18 +198,18 @@ async def baixar_pdf(orc_id: str, _auth=Depends(require_auth)):
     # get data
     d = await obter_orcamento(orc_id)
     if not isinstance(d, dict):
-        raise HTTPException(404, "Orçamento não encontrado")
+        raise HTTPException(404, "OrÃ§amento nÃ£o encontrado")
 
-    id_orc = d.get("ID Orçamento") or d.get("id_orcamento") or orc_id
+    id_orc = d.get("ID OrÃ§amento") or d.get("id_orcamento") or orc_id
     datahora = d.get("Data/Hora") or d.get("data_hora") or datetime.now().strftime("%d/%m/%Y %H:%M:%S")
-    tipo_servico = d.get("Tipo de Serviço") or d.get("tipo_servico") or "Impressão"
+    tipo_servico = d.get("Tipo de ServiÃ§o") or d.get("tipo_servico") or "ImpressÃ£o"
     cliente_val = d.get("CLIENTE (Valor)") or d.get("Cliente") or d.get("cliente") or ""
     vendedor = d.get("Vendedor") or ""
     status_val = d.get("Status") or d.get("status") or "Sem desconto"
     qtd = d.get("Quantidade") or d.get("quantidade") or ""
-    unidade = d.get("Unidade") or d.get("unidade") or "Centímetros"
+    unidade = d.get("Unidade") or d.get("unidade") or "CentÃ­metros"
     metros = d.get("Metros") or d.get("metros") or ""
-    preco = d.get("Preço por metro") or d.get("preco_por_metro") or ""
+    preco = d.get("PreÃ§o por metro") or d.get("preco_por_metro") or ""
     forma_pgto = d.get("Forma de Pagamento") or ""
     total = d.get("Valor Total") or d.get("valor_total") or ""
 
@@ -241,3 +244,84 @@ async def baixar_pdf(orc_id: str, _auth=Depends(require_auth)):
 @app.get("/healthz")
 async def healthz():
     return {"ok": True}
+
+
+
+
+# ===== Importar Planilha (Excel -> DB) =====
+def _header_map(ws):
+    return [(c.value if c is not None else None) for c in ws[1]]
+
+
+def _row_to_dict(headers, row):
+    out = {}
+    for i, h in enumerate(headers):
+        if not h:
+            continue
+        v = row[i].value if i < len(row) else None
+        out[str(h)] = v if v is not None else ""
+    return out
+
+
+@app.get('/importar', response_class=HTMLResponse)
+async def importar_get(request: Request, _auth=Depends(require_auth)):
+    return templates.TemplateResponse('importar.html', {'request': request})
+
+
+@app.post('/importar', response_class=HTMLResponse)
+async def importar_post(request: Request, file: UploadFile = File(...), _auth=Depends(require_auth)):
+    if not DB.is_ready():
+        return templates.TemplateResponse('importar.html', {'request': request, 'error': 'DATABASE_URL não configurado no Heroku.'}, status_code=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    with tempfile.NamedTemporaryFile(delete=False, suffix='.xlsx') as tmp:
+        content = await file.read()
+        tmp.write(content)
+        tmp_path = tmp.name
+    wb = load_workbook(tmp_path, read_only=True, data_only=True)
+    def get_ws(*names):
+        for n in names:
+            if n in wb.sheetnames:
+                return wb[n]
+        return None
+    ws_orc = get_ws('Orçamentos', 'Orcamentos')
+    ws_cad = get_ws('Cadastros')
+    ws_ped = get_ws('Pedidos')
+    counts = {'orc_lidos': 0, 'orc_inseridos': 0, 'cad_lidos': 0, 'cad_inseridos': 0, 'ped_lidos': 0, 'ped_inseridos': 0}
+    if ws_orc is not None:
+        headers = _header_map(ws_orc)
+        for row in ws_orc.iter_rows(min_row=2):
+            d = _row_to_dict(headers, row)
+            if not any(v for v in d.values()):
+                continue
+            counts['orc_lidos'] += 1
+            try:
+                DB.salvar_orcamento(d)
+                counts['orc_inseridos'] += 1
+            except Exception:
+                pass
+    if ws_cad is not None:
+        headers = _header_map(ws_cad)
+        for row in ws_cad.iter_rows(min_row=2):
+            d = _row_to_dict(headers, row)
+            if not any(v for v in d.values()):
+                continue
+            counts['cad_lidos'] += 1
+            try:
+                DB.salvar_cadastro(d)
+                counts['cad_inseridos'] += 1
+            except Exception:
+                pass
+    if ws_ped is not None:
+        headers = _header_map(ws_ped)
+        for row in ws_ped.iter_rows(min_row=2):
+            d = _row_to_dict(headers, row)
+            if not any(v for v in d.values()):
+                continue
+            counts['ped_lidos'] += 1
+            try:
+                DB.salvar_pedido(d)
+                counts['ped_inseridos'] += 1
+            except Exception:
+                pass
+    return templates.TemplateResponse('importar.html', {'request': request, 'result': counts})
+
+
