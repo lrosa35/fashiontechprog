@@ -210,6 +210,11 @@ class OrcamentoIn(BaseModel):
     status: Literal["Sem desconto", "Novo", "Ativo", "Inativo"]
     unidade: Literal["CentÃ­metros", "Metro"]
     quantidade: str = Field(..., description="Em cm (inteiro) ou m (decimal). Usa vÃ­rgula ou ponto.")
+    # Opcionais (UI Web): se informados, sobrescrevem cÃ¡lculos/salvam no registro
+    vendedor: Optional[str] | None = None
+    forma_pagamento: Optional[str] | None = None
+    preco_por_metro_opc: Optional[str] | None = None
+    metros_opc: Optional[str] | None = None
 
 class OrcamentoOut(BaseModel):
     id_orcamento: str
@@ -299,6 +304,17 @@ async def criar_orcamento(body: OrcamentoIn):
     id_orc = f"OR-{sigla}{seq}{dtok['data_compacta']}"
     metros = (qtd/100.0) if body.unidade == "CentÃ­metros" else qtd
     preco  = 8.00 if body.status in ["Novo", "Ativo"] else 8.50
+    # Overrides opcionais vindos do formulÃ¡rio
+    try:
+        if body.metros_opc:
+            metros = float(str(body.metros_opc).replace(",", "."))
+    except Exception:
+        pass
+    try:
+        if body.preco_por_metro_opc:
+            preco = float(str(body.preco_por_metro_opc).replace(",", "."))
+    except Exception:
+        pass
     total  = metros * preco
 
     cnpj_fmt = formatar_cnpj(body.cnpj) if len(d)==14 else formatar_cpf(body.cnpj)
@@ -329,13 +345,13 @@ async def criar_orcamento(body: OrcamentoIn):
             "Documento": ("CPF" if len(d)==11 else "CNPJ"),
             "CNPJ/CPF": cnpj_fmt,
             "E-mail": body.email,
-            "Vendedor": "",
+            "Vendedor": str(body.vendedor or ""),
             "Status": body.status,
             "Quantidade": pt(qtd),
             "Unidade": body.unidade,
             "Metros": pt(metros),
             "Preço por metro": pt(preco),
-            "Forma de Pagamento": "",
+            "Forma de Pagamento": str(body.forma_pagamento or ""),
             "Valor Total": pt(total),
         })
     else:

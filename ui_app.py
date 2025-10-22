@@ -74,6 +74,10 @@ async def create_orcamento(
     status_: str = Form(alias="status", default="Sem desconto"),
     unidade: str = Form(...),
     quantidade: str = Form(...),
+    vendedor: Optional[str] = Form(default=None),
+    forma_pagamento: Optional[str] = Form(default=None),
+    preco_por_metro_opc: Optional[str] = Form(default=None),
+    metros_opc: Optional[str] = Form(default=None),
     _auth=Depends(require_auth),
 ):
     try:
@@ -85,6 +89,10 @@ async def create_orcamento(
             status=status_,
             unidade=unidade,
             quantidade=quantidade,
+            vendedor=vendedor,
+            forma_pagamento=forma_pagamento,
+            preco_por_metro_opc=preco_por_metro_opc,
+            metros_opc=metros_opc,
         )
     except ValidationError as ve:
         return templates.TemplateResponse(
