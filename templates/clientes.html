@@ -1,8 +1,29 @@
-{% extends "base.html" %}
+﻿{% extends "base.html" %}
 {% block title %}Cadastro de Clientes{% endblock %}
 {% block content %}
   <h1>Cadastro de Clientes</h1>
-  <p>Em construção. Vamos espelhar os campos do .exe (Razão Social/Nome, Documento, Contatos, Status do Cliente, etc.).</p>
-  <p>Me envie os campos obrigatórios e regras para persistir no mesmo banco (tabela/colunas) que usava no Excel ou DB.</p>
+  <form method="get" action="/clientes">
+    <div class="row">
+      <div>
+        <label for="doc">CNPJ/CPF</label>
+        <input type="text" id="doc" name="doc" value="{{ doc or '' }}" placeholder="Somente números" />
+      </div>
+      <div style="align-self:end">
+        <button type="submit">Buscar</button>
+      </div>
+    </div>
+  </form>
+  {% if error %}
+    <div class="error">{{ error }}</div>
+  {% endif %}
+  {% if cad %}
+    <h2>Dados do Cliente</h2>
+    <table>
+      {% for k, v in cad.items() %}
+        <tr><th>{{ k }}</th><td>{{ v }}</td></tr>
+      {% endfor %}
+    </table>
+  {% elif doc %}
+    <p>Nenhum cadastro encontrado para {{ doc }}.</p>
+  {% endif %}
 {% endblock %}
-

@@ -67,8 +67,15 @@ async def index(request: Request, _auth=Depends(require_auth)):
     )
 
 @app.get("/clientes", response_class=HTMLResponse)
-async def clientes(request: Request, _auth=Depends(require_auth)):
-    return templates.TemplateResponse("clientes.html", {"request": request})
+async def clientes(request: Request, doc: Optional[str] = None, _auth=Depends(require_auth)):
+    cad = None
+    error = None
+    if doc:
+        try:
+            cad = DB.buscar_cadastro_por_documento('CNPJ/CPF', doc)
+        except Exception as ex:
+            error = f'Falha ao buscar: {ex}'
+    return templates.TemplateResponse('clientes.html', {'request': request, 'doc': doc or '', 'cad': cad, 'error': error})
 
 @app.get("/contrato", response_class=HTMLResponse)
 async def contrato(request: Request, _auth=Depends(require_auth)):
