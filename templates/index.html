@@ -80,4 +80,46 @@
       <a class="btn secondary" href="/buscar">Buscar</a>
     </div>
   </form>
+
+  <h2 style="margin-top:28px">Buscar/Reimprimir Orçamento</h2>
+  <form method="get" action="/">
+    <div class="row">
+      <div>
+        <label for="buscar_id">ID Orçamento</label>
+        <input type="text" id="buscar_id" name="id" value="{{ q_id or '' }}" />
+      </div>
+      <div>
+        <label for="buscar_cnpj">CNPJ/CPF</label>
+        <input type="text" id="buscar_cnpj" name="cnpj" value="{{ q_cnpj or '' }}" />
+      </div>
+      <div style="align-self:end">
+        <button type="submit">Buscar Orçamentos</button>
+      </div>
+    </div>
+  </form>
+
+  {% if rows is defined %}
+    <table>
+      <tr>
+        <th>ID Orçamento</th>
+        <th>Cliente</th>
+        <th>Documento</th>
+        <th>Data/Hora</th>
+        <th>Ações</th>
+      </tr>
+      {% for r in rows %}
+        {% set _id = r.get('ID Orçamento') or r.get('id_orcamento') %}
+        <tr>
+          <td>{{ _id }}</td>
+          <td>{{ r.get('CLIENTE (Valor)') or r.get('Cliente') or r.get('cliente') }}</td>
+          <td>{{ r.get('CNPJ/CPF') or r.get('cnpj') or r.get('cnpj_cpf') }}</td>
+          <td>{{ r.get('Data/Hora') or r.get('data_hora') }}</td>
+          <td>
+            <a class="btn" href="/orcamentos/{{ _id }}/pdf">PDF</a>
+            <a class="btn secondary" href="/orcamentos/{{ _id }}">Detalhes</a>
+          </td>
+        </tr>
+      {% endfor %}
+    </table>
+  {% endif %}
 {% endblock %}

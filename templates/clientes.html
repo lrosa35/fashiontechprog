@@ -16,14 +16,130 @@
   {% if error %}
     <div class="error">{{ error }}</div>
   {% endif %}
-  {% if cad %}
-    <h2>Dados do Cliente</h2>
-    <table>
-      {% for k, v in cad.items() %}
-        <tr><th>{{ k }}</th><td>{{ v }}</td></tr>
-      {% endfor %}
-    </table>
-  {% elif doc %}
+  <form method="post" action="/clientes">
+    <input type="hidden" name="cnpj_cpf" value="{{ (cad['CNPJ/CPF'] if cad else doc) or '' }}" />
+    <div class="row">
+      <div>
+        <label>Documento</label>
+        <input type="text" name="Documento" value="{{ cad['Documento'] if cad else '' }}" />
+      </div>
+      <div>
+        <label>Razão Social/Nome</label>
+        <input type="text" name="Razão Social/Nome" value="{{ cad['Razão Social/Nome'] if cad else '' }}" />
+      </div>
+      <div>
+        <label>Nome Fantasia</label>
+        <input type="text" name="Nome Fantasia" value="{{ cad['Nome Fantasia'] if cad else '' }}" />
+      </div>
+    </div>
+    <div class="row">
+      <div>
+        <label>Contato</label>
+        <input type="text" name="Contato" value="{{ cad['Contato'] if cad else '' }}" />
+      </div>
+      <div>
+        <label>E-mail (CNPJ)</label>
+        <input type="email" name="E-mail (CNPJ)" value="{{ cad['E-mail (CNPJ)'] if cad else '' }}" />
+      </div>
+      <div>
+        <label>E-mail (Manual)</label>
+        <input type="email" name="E-mail (Manual)" value="{{ cad['E-mail (Manual)'] if cad else '' }}" />
+      </div>
+    </div>
+    <div class="row">
+      <div>
+        <label>CEP</label>
+        <input type="text" name="CEP" value="{{ cad['CEP'] if cad else '' }}" />
+      </div>
+      <div>
+        <label>Endereço</label>
+        <input type="text" name="Endereço" value="{{ cad['Endereço'] if cad else '' }}" />
+      </div>
+      <div>
+        <label>Número</label>
+        <input type="text" name="Número" value="{{ cad['Número'] if cad else '' }}" />
+      </div>
+    </div>
+    <div class="row">
+      <div>
+        <label>Complemento</label>
+        <input type="text" name="Complemento" value="{{ cad['Complemento'] if cad else '' }}" />
+      </div>
+      <div>
+        <label>Bairro</label>
+        <input type="text" name="Bairro" value="{{ cad['Bairro'] if cad else '' }}" />
+      </div>
+      <div>
+        <label>Município</label>
+        <input type="text" name="Município" value="{{ cad['Município'] if cad else '' }}" />
+      </div>
+      <div>
+        <label>UF</label>
+        <input type="text" name="UF" value="{{ cad['UF'] if cad else '' }}" />
+      </div>
+    </div>
+    <div class="row">
+      <div>
+        <label>Entrega CEP</label>
+        <input type="text" name="Entrega CEP" value="{{ cad['Entrega CEP'] if cad else '' }}" />
+      </div>
+      <div>
+        <label>Entrega Endereço</label>
+        <input type="text" name="Entrega Endereço" value="{{ cad['Entrega Endereço'] if cad else '' }}" />
+      </div>
+      <div>
+        <label>Entrega Número</label>
+        <input type="text" name="Entrega Número" value="{{ cad['Entrega Número'] if cad else '' }}" />
+      </div>
+    </div>
+    <div class="row">
+      <div>
+        <label>Entrega Complemento</label>
+        <input type="text" name="Entrega Complemento" value="{{ cad['Entrega Complemento'] if cad else '' }}" />
+      </div>
+      <div>
+        <label>Entrega Bairro</label>
+        <input type="text" name="Entrega Bairro" value="{{ cad['Entrega Bairro'] if cad else '' }}" />
+      </div>
+      <div>
+        <label>Entrega Município</label>
+        <input type="text" name="Entrega Município" value="{{ cad['Entrega Município'] if cad else '' }}" />
+      </div>
+      <div>
+        <label>Entrega UF</label>
+        <input type="text" name="Entrega UF" value="{{ cad['Entrega UF'] if cad else '' }}" />
+      </div>
+    </div>
+    <div class="row">
+      <div>
+        <label>Desconto Duração</label>
+        <input type="text" name="Desconto Duração" value="{{ cad['Desconto Duração'] if cad else '' }}" />
+      </div>
+      <div>
+        <label>Desconto Unidade</label>
+        <input type="text" name="Desconto Unidade" value="{{ cad['Desconto Unidade'] if cad else '' }}" />
+      </div>
+      <div>
+        <label>Telefone 1</label>
+        <input type="text" name="Telefone 1" value="{{ cad['Telefone 1'] if cad else '' }}" />
+      </div>
+      <div>
+        <label>Telefone 2</label>
+        <input type="text" name="Telefone 2" value="{{ cad['Telefone 2'] if cad else '' }}" />
+      </div>
+    </div>
+    <div class="row">
+      <div>
+        <label>Vendedor</label>
+        <input type="text" name="Vendedor" value="{{ cad['Vendedor'] if cad else '' }}" />
+      </div>
+    </div>
+    <div class="actions">
+      <button type="submit">Salvar Cadastro</button>
+    </div>
+  </form>
+  {% if doc and not cad %}
     <p>Nenhum cadastro encontrado para {{ doc }}.</p>
   {% endif %}
 {% endblock %}
+

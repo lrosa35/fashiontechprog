@@ -1,8 +1,22 @@
-{% extends "base.html" %}
+﻿{% extends "base.html" %}
 {% block title %}Gerar Contrato{% endblock %}
 {% block content %}
   <h1>Gerar Contrato</h1>
-  <p>Em construção. O web vai usar o template DOCX da pasta <code>data/CONTRATO PARA ATUALIZAÇÃO/</code> e gerar o DOCX/PDF a partir dos dados do orçamento.</p>
-  <p>Confirme quais campos variáveis entram no contrato e se deve baixar direto ou salvar em <code>data/exports/</code>.</p>
+  {% if error %}
+    <div class="error">{{ error }}</div>
+  {% endif %}
+  <form method="post" action="/contrato">
+    <div class="row">
+      <div>
+        <label for="orc_id">ID Orçamento</label>
+        <input type="text" id="orc_id" name="orc_id" value="{{ orc_id or '' }}" placeholder="Ex: OR-IM1ddmmaa" required />
+      </div>
+      <div style="align-self:end">
+        <button type="submit">Gerar DOCX</button>
+      </div>
+    </div>
+  </form>
+  {% if download_url %}
+    <p><a class="btn" href="{{ download_url }}">Baixar contrato</a></p>
+  {% endif %}
 {% endblock %}
-

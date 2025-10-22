@@ -56,16 +56,26 @@ def require_auth(credentials: Optional[HTTPBasicCredentials] = Depends(security)
 
 
 @app.get("/", response_class=HTMLResponse)
-async def index(request: Request, _auth=Depends(require_auth)):
+async def index(request: Request, id: Optional[str] = None, cnpj: Optional[str] = None, _auth=Depends(require_auth)):
+    rows = None
+    if id or cnpj:
+        try:
+            resp = await listar_orcamentos(id=id, cnpj=cnpj, vendedor=None, start=None, end=None)
+            rows = resp.get('rows', []) if isinstance(resp, dict) else []
+        except Exception:
+            rows = []
     return templates.TemplateResponse(
-        "index.html",
+        'index.html',
         {
-            "request": request,
-            "defaults": {
-                "tipo_servico": "Impressão",
-                "status": "Sem desconto",
-                "unidade": "Centímetros",
+            'request': request,
+            'defaults': {
+                'tipo_servico': 'Impressão',
+                'status': 'Sem desconto',
+                'unidade': 'Centímetros',
             },
+            'rows': rows,
+            'q_id': id or '',
+            'q_cnpj': cnpj or '',
         },
     )
 
@@ -337,3 +347,81 @@ async def importar_post(request: Request, file: UploadFile = File(...), _auth=De
 
 
 
+@app.post('/clientes', response_class=HTMLResponse)
+async def clientes_post(request: Request, _auth=Depends(require_auth)):
+    form = await request.form()
+    d = {k: str(v) for k, v in form.items()}
+    if 'cnpj_cpf' in d and 'CNPJ/CPF' not in d:
+        d['CNPJ/CPF'] = d['cnpj_cpf']
+    try:
+        DB.salvar_cadastro(d)
+        msg = 'Cadastro salvo com sucesso.'
+        cad = DB.buscar_cadastro_por_documento('CNPJ/CPF', d.get('CNPJ/CPF',''))
+    except Exception as ex:
+        msg = f'Falha ao salvar: {ex}'
+        cad = d
+    return templates.TemplateResponse('clientes.html', {'request': request, 'doc': d.get('CNPJ/CPF',''), 'cad': cad, 'error': None, 'msg': msg})
+@app.post('/contrato', response_class=HTMLResponse)
+async def contrato_post(request: Request, _auth=Depends(require_auth)):
+    form = await request.form()
+    orc_id = str(form.get('orc_id') or '').strip()
+    if not orc_id:
+        return templates.TemplateResponse('contrato.html', {'request': request, 'error': 'Informe o ID do orçamento'}, status_code=status.HTTP_400_BAD_REQUEST)
+    try:
+        d = await obter_orcamento(orc_id)
+        if not isinstance(d, dict):
+            raise RuntimeError('Orçamento não encontrado')
+    except Exception as ex:
+        return templates.TemplateResponse('contrato.html', {'request': request, 'error': f'Falha ao obter orçamento: {ex}', 'orc_id': orc_id}, status_code=status.HTTP_404_NOT_FOUND)
+
+    export_dir = os.path.join(os.path.dirname(__file__), 'data', 'exports')
+    os.makedirs(export_dir, exist_ok=True)
+    out_path = os.path.join(export_dir, f'Contrato_{orc_id}.docx')
+
+    try:
+        from docx import Document
+        tdir = os.path.join(os.path.dirname(__file__), 'data', 'CONTRATO PARA ATUALIZAÇÃO')
+        template = None
+        if os.path.isdir(tdir):
+            for name in os.listdir(tdir):
+                if name.lower().endswith('.docx'):
+                    template = os.path.join(tdir, name); break
+        doc = Document(template) if template else Document()
+        if not template:
+            doc.add_heading('Contrato - Orçamento ' + orc_id, 0)
+        kv = {
+            'ID Orçamento': orc_id,
+            'Data/Hora': d.get('Data/Hora') or d.get('data_hora'),
+            'Tipo de Serviço': d.get('Tipo de Serviço') or d.get('tipo_servico'),
+            'Cliente': d.get('CLIENTE (Valor)') or d.get('Cliente') or d.get('cliente'),
+            'CNPJ/CPF': d.get('CNPJ/CPF') or d.get('cnpj') or d.get('cnpj_cpf'),
+            'E-mail': d.get('E-mail') or d.get('email'),
+            'Vendedor': d.get('Vendedor') or '',
+            'Status': d.get('Status') or d.get('status') or '',
+            'Quantidade': d.get('Quantidade') or d.get('quantidade'),
+            'Unidade': d.get('Unidade') or d.get('unidade'),
+            'Metros': d.get('Metros') or d.get('metros'),
+            'Preço por metro': d.get('Preço por metro') or d.get('preco_por_metro'),
+            'Forma de Pagamento': d.get('Forma de Pagamento') or '',
+            'Valor Total': d.get('Valor Total') or d.get('valor_total'),
+        }
+        for p in doc.paragraphs:
+            for k,v in kv.items():
+                if v is None: v = ''
+                p.text = p.text.replace('{{'+k+'}}', str(v))
+        if not template:
+            table = doc.add_table(rows=0, cols=2)
+            for k,v in kv.items():
+                row = table.add_row().cells
+                row[0].text = k
+                row[1].text = str(v or '')
+        doc.save(out_path)
+    except Exception as ex:
+        return templates.TemplateResponse('contrato.html', {'request': request, 'error': f'Falha ao gerar DOCX: {ex}', 'orc_id': orc_id}, status_code=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+    dl_url = f"/static-download?path={out_path}"
+    return templates.TemplateResponse('contrato.html', {'request': request, 'download_url': dl_url, 'orc_id': orc_id})
+
+@app.get('/static-download')
+async def static_download(path: str, _auth=Depends(require_auth)):
+    return FileResponse(path, media_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document', filename=os.path.basename(path))
